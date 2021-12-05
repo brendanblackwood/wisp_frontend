@@ -9,9 +9,12 @@ export type Launch = {
   rocket: Rocket;
   flight_number: string;
   details: string;
-  presskit_url: string;
+  links: {
+    presskit: string,
+  };
 };
 
 export type LaunchResponse = {
   docs: Array<Launch>;
+  totalDocs: number;
 };
