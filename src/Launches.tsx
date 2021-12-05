@@ -12,16 +12,14 @@ import Paper from '@mui/material/Paper';
 import { visuallyHidden } from '@mui/utils';
 
 import { getLaunches } from './api';
-import { ApiSort, Launch } from './Types';
-
-type Order = 'asc' | 'desc';
+import { ApiSort, ApiSortOrder, Launch } from './Types';
 
 function Launches() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState<Launch[]>([]);
   const [count, setCount] = useState(0)
-  const [order, setOrder] = useState<Order>('asc');
+  const [order, setOrder] = useState<ApiSortOrder>('asc');
   const [orderBy, setOrderBy] = useState<keyof Launch>('flight_number');
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -37,6 +35,7 @@ function Launches() {
     setOrderBy(property);
   };
 
+  // fetch page from api anytime page, rowsPerPag, order, or orderBy change
   useEffect(() => {
     const sort: ApiSort = {
       [orderBy]: order,
@@ -152,7 +151,7 @@ function Launches() {
           count={count}
           rowsPerPage={rowsPerPage}
           page={page}
-          onPageChange={(event, newPage) => setPage(newPage)}
+          onPageChange={(_, newPage) => setPage(newPage)}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </>

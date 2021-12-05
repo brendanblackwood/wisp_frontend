@@ -17,6 +17,8 @@ export type LaunchResponse = {
   totalDocs: number;
 };
 
+export type ApiSortOrder = 'asc' | 'desc';
+
 export interface ApiSort {
-  [key: string]: string;
+  [key: string]: ApiSortOrder;
 };
