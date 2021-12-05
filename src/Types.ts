@@ -1,12 +1,10 @@
-export type Rocket = {
-  name: string;
-};
-
 export type Launch = {
   id: string;
   name: string;
   date_utc: string;
-  rocket: Rocket;
+  rocket: {
+    name: string;
+  };
   flight_number: string;
   details: string;
   links: {
@@ -17,4 +15,8 @@ export type Launch = {
 export type LaunchResponse = {
   docs: Array<Launch>;
   totalDocs: number;
+};
+
+export interface ApiSort {
+  [key: string]: string;
 };

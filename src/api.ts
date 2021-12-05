@@ -1,6 +1,6 @@
-import { LaunchResponse } from './Types';
+import { ApiSort, LaunchResponse } from './Types';
 
-export function getLaunches(page: number, limit: number, sort: string = ''): Promise<LaunchResponse> {
+export function getLaunches(page: number, limit: number, sort: ApiSort): Promise<LaunchResponse> {
     return fetch("https://api.spacexdata.com/v5/launches/query", {
       method: 'POST',
       headers: {
@@ -9,7 +9,7 @@ export function getLaunches(page: number, limit: number, sort: string = ''): Pro
       body: JSON.stringify({
           options: {
             limit: limit,
-            page: page + 1,
+            page: page + 1, // spaceX 1 indexes their pages, but we are 0 indexing
             populate: [
                 'rocket'
             ],
