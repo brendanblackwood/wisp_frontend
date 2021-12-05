@@ -7,7 +7,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-import { Launch, LaunchResponse } from './Types';
+import { getLaunches } from './api';
+import { Launch } from './Types';
 
 function Launches() {
   const [error, setError] = useState(null);
@@ -15,12 +16,7 @@ function Launches() {
   const [items, setItems] = useState<Launch[]>([]);
 
   useEffect(() => {
-    fetch("https://api.spacexdata.com/v4/launches/query", {
-      method: 'POST',
-      body: 'limit=2',
-    })
-      .then(res => res.json())
-      .then(data => data as LaunchResponse)
+    getLaunches(1)
       .then(
         (result) => {
           setIsLoaded(true);
@@ -40,7 +36,7 @@ function Launches() {
   } else {
     return (
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 650 }} aria-label="spacex-launches">
           <TableHead>
             <TableRow>
               <TableCell>Flight Number</TableCell>
@@ -59,9 +55,9 @@ function Launches() {
               <TableCell component="th" scope="row">
                 {row.flight_number}
               </TableCell>
-              <TableCell align="right">{row.date_utc}</TableCell>
+              <TableCell align="right">{(new Date(row.date_utc)).getFullYear()}</TableCell>
               <TableCell align="right">{row.name}</TableCell>
-              <TableCell align="right">{row.rocket}</TableCell>
+              <TableCell align="right">{row.rocket.name}</TableCell>
               <TableCell align="right">{row.details}</TableCell>
             </TableRow>
           ))}
