@@ -17,6 +17,11 @@ export function getLaunches(page: number, limit: number, sort: ApiSort): Promise
           },
       }),
     })
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          throw Error(res.statusText);
+        }
+        return res.json();
+      })
       .then(data => data as LaunchResponse);
 }

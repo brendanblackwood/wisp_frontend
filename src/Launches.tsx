@@ -51,7 +51,7 @@ function Launches() {
           setIsLoaded(true);
           setError(error.message);
         }
-      )
+      );
   }, [page, rowsPerPage, order, orderBy]);
 
   const columns: {
@@ -142,6 +142,13 @@ function Launches() {
                 }}>{row.details}</TableCell>
               </TableRow>
             ))}
+            {items.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={5} align="center">
+                  No Launches found
+                </TableCell>
+              </TableRow>
+            )}
             </TableBody>
           </Table>
         </TableContainer>
