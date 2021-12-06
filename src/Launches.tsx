@@ -54,6 +54,7 @@ function Launches() {
       );
   }, [page, rowsPerPage, order, orderBy]);
 
+  // define table columns
   const columns: {
     label: string;
     key: keyof Launch;
@@ -125,8 +126,11 @@ function Launches() {
               <TableRow
                 hover
                 key={row.id}
-                onClick={() => window.open(row.links.presskit, '_blank')}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                onClick={() => row.links.presskit && window.open(row.links.presskit, '_blank')}
+                sx={{ 
+                  '&:last-child td, &:last-child th': { border: 0 },
+                  cursor: row.links.presskit ? 'pointer' : 'default', 
+                }}
               >
                 <TableCell align="left" component="th" scope="row">
                   {row.flight_number}
@@ -142,6 +146,7 @@ function Launches() {
                 }}>{row.details}</TableCell>
               </TableRow>
             ))}
+            {/* handle empty state */}
             {items.length === 0 && (
               <TableRow>
                 <TableCell colSpan={5} align="center">
